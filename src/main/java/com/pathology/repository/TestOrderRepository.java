@@ -16,6 +16,11 @@ public interface TestOrderRepository extends JpaRepository<TestOrder, Long> {
 
     List<TestOrder> findByOrderDateBetween(LocalDateTime start, LocalDateTime end);
 
+    List<TestOrder> findByStatus(com.pathology.entity.OrderStatus status);
+
     @Query("SELECT COUNT(t) FROM TestOrder t WHERE t.orderNumber LIKE :prefix%")
     long countByOrderNumberStartingWith(@Param("prefix") String prefix);
+
+    @Query("SELECT t FROM TestOrder t LEFT JOIN FETCH t.resultEntry LEFT JOIN FETCH t.testMaster")
+    List<TestOrder> findAllWithDetails();
 }

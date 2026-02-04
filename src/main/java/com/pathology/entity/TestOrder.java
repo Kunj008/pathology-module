@@ -46,6 +46,9 @@ public class TestOrder {
     @Column(nullable = false)
     private OrderStatus status;
 
+    @OneToOne(mappedBy = "testOrder")
+    private ResultEntry resultEntry;
+
     @PrePersist
     protected void onCreate() {
         if (this.orderDate == null) {

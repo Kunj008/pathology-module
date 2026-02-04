@@ -33,13 +33,19 @@ public class TestOrderController {
         return ResponseEntity.ok(testOrderService.getTodayOrders());
     }
 
+    @GetMapping("/pending")
+    @Operation(summary = "List pending orders", description = "Fetches all test orders with PENDING status")
+    public ResponseEntity<List<TestOrderResponseDTO>> getPendingOrders() {
+        return ResponseEntity.ok(testOrderService.getPendingOrders());
+    }
+
     @GetMapping
     @Operation(summary = "List all orders", description = "Fetches all test orders ever created")
     public ResponseEntity<List<TestOrderResponseDTO>> getAllOrders() {
         return ResponseEntity.ok(testOrderService.getAllOrders());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:[0-9]+}")
     @Operation(summary = "Get order by ID", description = "Fetches a specific test order by its unique ID")
     public ResponseEntity<TestOrderResponseDTO> getOrderById(@PathVariable Long id) {
         return ResponseEntity.ok(testOrderService.getOrderById(id));

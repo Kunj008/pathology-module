@@ -20,4 +20,5 @@ public class TestOrderResponseDTO {
     private String testName;
     private LocalDateTime orderDate;
     private OrderStatus status;
+    private String resultValue;
 }

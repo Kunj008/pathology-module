@@ -54,8 +54,14 @@ public class TestOrderService {
                 .collect(Collectors.toList());
     }
 
+    public List<TestOrderResponseDTO> getPendingOrders() {
+        return testOrderRepository.findByStatus(OrderStatus.PENDING).stream()
+                .map(this::mapToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
     public List<TestOrderResponseDTO> getAllOrders() {
-        return testOrderRepository.findAll().stream()
+        return testOrderRepository.findAllWithDetails().stream()
                 .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
     }
@@ -82,6 +88,7 @@ public class TestOrderService {
                 .testName(order.getTestMaster().getName())
                 .orderDate(order.getOrderDate())
                 .status(order.getStatus())
+                .resultValue(order.getResultEntry() != null ? order.getResultEntry().getResultValue() : null)
                 .build();
     }
 }
